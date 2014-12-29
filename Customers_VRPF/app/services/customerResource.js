@@ -1,14 +1,12 @@
-﻿
-(function () {
+/// <reference path='../_all.ts' />
+var App;
+(function (App) {
     "use strict";
-
+    angular.module("services").factory("customersResource", ["$resource", customersResource]);
     function customersResource($resource) {
         return $resource("/api/customers/:customerId", null, {
             "update": { method: "PUT" }
         });
     }
-    angular.module("services").factory("customersResource", ["$resource", customersResource]);
-
-})();
-
-
+})(App || (App = {}));
+//# sourceMappingURL=customerresource.js.map

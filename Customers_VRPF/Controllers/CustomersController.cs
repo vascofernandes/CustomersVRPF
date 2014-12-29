@@ -21,8 +21,6 @@ namespace Customers_VRPF.Controllers
         {
             IQueryable<Customer> customers = _unit.Customers.All;
 
-            // var response = customers.To<CustomerDto>();
-
             var response = from b in customers
                         select new CustomerDto()
                         {
@@ -33,18 +31,6 @@ namespace Customers_VRPF.Controllers
                             Country = b.Country
                         };
 
-
-            /*
-            MemoryStream stream1 = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(IQueryable<Customer>));
-
-            ser.WriteObject(stream1, customers);
-
-            stream1.Position = 0;
-            StreamReader sr = new StreamReader(stream1);
-            
-            var response = sr.ReadToEnd();
-            */
             return Ok(response);
         }
 
@@ -66,15 +52,13 @@ namespace Customers_VRPF.Controllers
                                Country = customer.Country
                            };
 
-            // result.To<CustomerDto>();
-
             return Ok(response);
         }
 
         public IHttpActionResult Post([FromBody]Customer customer)
         {
             var newCustomer = _unit.Customers.Add(customer);
-            _unit.Commit(); // Would do work if we had a DB
+            // _unit.Commit(); // Would do work if we had a DB
 
             var url = Url.Link("DefaultApi", new { controller = "Customers", id = newCustomer.Id });
 
@@ -86,7 +70,7 @@ namespace Customers_VRPF.Controllers
         {
 
             var customer = _unit.Customers.Update(id, updatedCustomer);
-            _unit.Commit(); // Would do work if we had a DB
+            // _unit.Commit(); // Would do work if we had a DB
 
             return Ok("Ok");
         }

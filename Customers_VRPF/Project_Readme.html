@@ -1,149 +1,37 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Your ASP.NET application</title>
-    <style>
-        body {
-            background: #fff;
-            color: #505050;
-            font: 14px 'Segoe UI', tahoma, arial, helvetica, sans-serif;
-            margin: 20px;
-            padding: 0;
-        }
+﻿The project consists of two main parts:
+- backend based on ASP.NET WebAPI
+- frontend based on AngularJS in the form of a Single Page Application.
 
-        #header {
-            background: #efefef;
-            padding: 0;
-        }
+The WebAPI is defined in Controllers/CustomersController.cs
+A general description of the API is as follows:
 
-        h1 {
-            font-size: 48px;
-            font-weight: normal;
-            margin: 0;
-            padding: 0 30px;
-            line-height: 150px;
-        }
 
-        p {
-            font-size: 20px;
-            color: #fff;
-            background: #969696;
-            padding: 0 30px;
-            line-height: 50px;
-        }
+GET    api/customers      - Get all customers
+GET    api/customers/{id} - Get one customer by ID
+POST   api/customers      - Insert a new customer
+PUT    api/customers/{id} - Update a customer
+DELETE api/customers/{id} - delete a customer.
 
-        #main {
-            padding: 5px 30px;
-        }
+A customer is defined in Models/Customers.cs.
+The operation are handled by the class Datastores/Datastore.cs which implements Interfaces/IUnitOfWork.cs.
+In Datastore.cs the methods Customers returns an instance of Repositories/CustomerRepository.cs which implements Interfaces/ICustomerRepository.cs.
+CustomerRepository.cs handles all the data related tasks, such as insertion, update, and deletion of customers.
+In this case, the implementation is simple a non-persistent List with some sample data.
+This can be easily replaced with database functionality.
+With this structure one can easily extend to API to handle for example products or invoices for each customer.
 
-        .section {
-            width: 21.7%;
-            float: left;
-            margin: 0 0 0 4%;
-        }
+When relevant I used some basic data mapping from domain objects, such as Customer.cs, to data transfer objects, to send over the network.
+For a more robust solution one could make use of libraries such as Json.NET (http://james.newtonking.com/json)
+and Automapper (http://automapper.org/), both available on NuGet.
 
-            .section h2 {
-                font-size: 13px;
-                text-transform: uppercase;
-                margin: 0;
-                border-bottom: 1px solid silver;
-                padding-bottom: 12px;
-                margin-bottom: 8px;
-            }
 
-            .section.first {
-                margin-left: 0;
-            }
+On the front end the applications uses angularjs ui-router to handle the three views of the applications:
+Customer List/Add New, Detailed Customer, and Edit Customer.
 
-                .section.first h2 {
-                    font-size: 24px;
-                    text-transform: none;
-                    margin-bottom: 25px;
-                    border: none;
-                }
+The frontend communicates with the backend using and service based on AngularJS Resources defined in app/services/customerResource.js.
+There controllers, one for each view, are defined in app/customers and make use of the customerResoure to communicate with the API.
+The front end is organized on a feature basis.
+If one would need to implement product management, a folder app/products would contain controllers and views related with product management.
 
-                .section.first li {
-                    border-top: 1px solid silver;
-                    padding: 8px 0;
-                }
-
-            .section.last {
-                margin-right: 0;
-            }
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            line-height: 20px;
-        }
-
-        li {
-            padding: 4px 0;
-        }
-
-        a {
-            color: #267cb2;
-            text-decoration: none;
-        }
-
-            a:hover {
-                text-decoration: underline;
-            }
-    </style>
-</head>
-<body>
-
-    <div id="header">
-        <h1>Your ASP.NET application</h1>
-        <p>Congratulations! You've created a project</p>
-    </div>
-
-    <div id="main">
-        <div class="section first">
-            <h2>This application consists of:</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320956">Help Page</a> for documenting your Web APIs</li>
-                <li>Theming using <a href="http://go.microsoft.com/fwlink/?LinkID=320754">Bootstrap</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320957">Authentication</a>, if selected, shows how to register and sign in</li>
-                <li>ASP.NET features managed using <a href="http://go.microsoft.com/fwlink/?LinkID=320958">NuGet</a></li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Customize app</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320959">Get started with HTTP services using ASP.NET Web API</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320960">Change the site's theme</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320961">Add more libraries using NuGet</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320962">Configure authentication</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320963">Scaffold an ASP.NET Web API from a model</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320964">Secure your web API</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320965">Access your web API on different devices</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320966">Enable tracing for testing and debugging</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320765">Add real-time web with ASP.NET SignalR</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320766">Add components using Scaffolding</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320768">Share your project</a></li>
-            </ul>
-        </div>
-
-        <div class="section">
-            <h2>Deploy</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320769">Ensure your app is ready for production</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320770">Microsoft Azure</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320771">Hosting providers</a></li>
-            </ul>
-        </div>
-
-        <div class="section last">
-            <h2>Get help</h2>
-            <ul>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320772">Get help</a></li>
-                <li><a href="http://go.microsoft.com/fwlink/?LinkID=320773">Get more templates</a></li>
-            </ul>
-        </div>
-    </div>
-</body>
-</html>
+The applications communicates correctly with the backend, but since there is no persistence,
+the customers information does not change between requests.

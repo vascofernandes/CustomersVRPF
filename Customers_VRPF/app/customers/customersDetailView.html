@@ -1,7 +1,12 @@
 ﻿<div class="row">
     <div class="col-md-12">
-        <p><strong>Customer Information</strong> &nbsp; <a ui-sref="customersEdit({customerId: vm.customer.Id})" class="btn btn-default">Edit</a>
-        </p>
+        <h3>
+            <strong>Customer Information</strong> &nbsp; <a ui-sref="customersEdit({customerId: vm.customer.Id})" class="btn btn-default">Edit</a>
+        </h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
         <div class="table-responsive" data-ng-cloak>
             <table class="table table-bordered table-hover" style="width: 800px">
                 <tr>
@@ -25,7 +30,6 @@
                     <td>{{ vm.customer.Country }}</td>
                 </tr>
             </table>
-            <hr/>
         </div>
     </div>
 </div>
