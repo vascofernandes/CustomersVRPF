@@ -1,0 +1,34 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <h3>
+            Edit customer Id: {{ vm.customer.Id }} &nbsp; <i ng-show="vm.loading" class="fa fa-spinner"></i>
+        </h3> 
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive" data-ng-cloak>
+            <table class="table table-bordered table-hover">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" data-ng-model="vm.customer.Name"/></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input type="text" data-ng-model="vm.customer.Address"/></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><input type="text" data-ng-model="vm.customer.City"/></td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td><input type="text" data-ng-model="vm.customer.Country"/></td>
+                </tr>
+            </table>
+            <button data-ng-click="vm.save(vm.customer)" class="btn btn-default" type="button">Save</button>
+            <button data-ng-click="vm.goBack()" class="btn btn-default" type="button">Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <p><strong>Customer Information</strong> &nbsp; <a ui-sref="customersEdit({customerId: vm.customer.Id})" class="btn btn-default">Edit</a>
+        </p>
+        <div class="table-responsive" data-ng-cloak>
+            <table class="table table-bordered table-hover" style="width: 800px">
+                <tr>
+                    <td>Id</td>
+                    <td>{{ vm.customer.Id }}</td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{ vm.customer.Name }}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{ vm.customer.Address }}</td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>{{ vm.customer.City }}</td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td>{{ vm.customer.Country }}</td>
+                </tr>
+            </table>
+            <hr/>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Transaction History</strong></p>
+
+        <p>No transactions.</p>
+    </div>
+</div>

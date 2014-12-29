@@ -1,48 +1,19 @@
 ﻿(function () {
     "use strict";
 
+    angular.module("customers").controller("CustomersListCtrl", ["$scope", "$http", "customersResource", CustomersListCtrl]);
 
-
-
-    angular.module("customers", ["ui.router", "services"]);
-    
-    angular.module("customers").config(["$stateProvider", "$urlRouuterProvider",
-        function ($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise("/customers");
-
-            $stateProvider.state("customersList", {
-                url: "/customers",
-                templateUrl: "app/customers/customersListView.html",
-                controller: "CustomersController as cc"
-            }).state("viewMovie", {
-                url: "/customers/:customerId/view",
-                templateUrl: "app/customers/customersDetailView.html",
-                controller: "CustomersController"
-            });
-        }
-    ]);
-    
-    angular.module("customers").controller("CustomersController", ["$scope", "$http", "customersResource", CustomersController]);
-
-    function CustomersController($scope, $http, customersResource) {
+    function CustomersListCtrl($scope, $http, customersResource) {
         var vm = this;
 
-        //declare variable for mainain ajax load and entry or edit mode
         vm.loading = true;
         vm.addMode = false;
 
-        //get all customer information
-        customersResource.query(function(data) {
+        //Get all customer information
+        customersResource.query(function (data) {
             vm.customers = data;
             vm.loading = false;
         });
-
-
-        $scope.toggleEdit = function (customer) {
-            console.log(this);
-            console.log(customer);
-            this.customer.editMode = !this.customer.editMode;
-        };
 
         vm.toggleAdd = function () {
             vm.addMode = !vm.addMode;
@@ -60,28 +31,24 @@
             });
         };
 
-        vm.save = function (customer) {
-            vm.loading = true;
-
-            customersResource.update({ customerId: customer.Id }, customer, function (data) {
-                alert("Saved Successfully!!");
-                customer.editMode = false;
-                vm.loading = false;
-            });
-        };
-
         //Delete Customer
         vm.deletecustomer = function (customer) {
+
+            if (!confirm("Are you sure ?")) {
+                return;
+            }
+
             vm.loading = true;
             var id = customer.Id;
 
-            customersResource.delete({ customerId: id}, function (data) {
+            customersResource.delete({ customerId: id }, function (data) {
                 alert("Deleted Successfully!!");
                 $.each(vm.customers, function (idx) {
                     if (vm.customers[idx].Id === id) {
                         vm.customers.splice(idx, 1);
                         return false;
                     }
+                    return null;
                 });
                 vm.loading = false;
             });
