@@ -1,22 +1,29 @@
 ﻿(function () {
     "use strict";
 
-    angular.module('commom.services', ['ngResource']);
 
-    angular.module('commom.services').factory('customersResource', ['$resource', customersResource]);
 
-    function customersResource($resource) {
-        return $resource('/api/customers/:customerId', null, {
-            'update': { method:'PUT' }
-        });
-    }
 
-    //create angularjs controller
-    angular.module('customers', ['commom.services']);//set and get the angular module
+    angular.module("customers", ["ui.router", "services"]);
+    
+    angular.module("customers").config(["$stateProvider", "$urlRouuterProvider",
+        function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("/customers");
 
-    angular.module('customers').controller('CustomersController', ['$scope', '$http', 'customersResource', CustomersController]);
+            $stateProvider.state("customersList", {
+                url: "/customers",
+                templateUrl: "app/customers/customersListView.html",
+                controller: "CustomersController as cc"
+            }).state("viewMovie", {
+                url: "/customers/:customerId/view",
+                templateUrl: "app/customers/customersDetailView.html",
+                controller: "CustomersController"
+            });
+        }
+    ]);
+    
+    angular.module("customers").controller("CustomersController", ["$scope", "$http", "customersResource", CustomersController]);
 
-    //angularjs controller method
     function CustomersController($scope, $http, customersResource) {
         var vm = this;
 
@@ -51,16 +58,6 @@
                 vm.customers.push(data);
                 vm.loading = false;
             });
-
-            /*$http.post('/api/customers/', this.newcustomer).success(function (data) {
-                alert("Added Successfully!!");
-                vm.addMode = false;
-                vm.customers.push(data);
-                vm.loading = false;
-            }).error(function (data) {
-                vm.error = "An Error has occured while Adding Customer! " + data;
-                vm.loading = false;
-            });*/
         };
 
         vm.save = function (customer) {
@@ -71,15 +68,6 @@
                 customer.editMode = false;
                 vm.loading = false;
             });
-
-            /*$http.put('/api/customers/' + frien.Id, frien).success(function (data) {
-                alert("Saved Successfully!!");
-                frien.editMode = false;
-                vm.loading = false;
-            }).error(function (data) {
-                vm.error = "An Error has occured while Saving customer! " + data;
-                vm.loading = false;
-            });*/
         };
 
         //Delete Customer
@@ -98,19 +86,6 @@
                 vm.loading = false;
             });
 
-            /*$http.delete('/api/customers/' + Id).success(function (data) {
-                alert("Deleted Successfully!!");
-                $.each(vm.customers, function (i) {
-                    if (vm.customers[i].Id === Id) {
-                        vm.customers.splice(i, 1);
-                        return false;
-                    }
-                });
-                vm.loading = false;
-            }).error(function (data) {
-                vm.error = "An Error has occured while Saving Customer! " + data;
-                vm.loading = false;
-            });*/
         };
 
     }
@@ -123,8 +98,8 @@
     "use strict";
 
     //create angularjs controller
-    var app = angular.module('customers', []);//set and get the angular module
-    app.controller('customerController', ['$scope', '$http', customerController]);
+    var app = angular.module("customers", []);//set and get the angular module
+    app.controller("customerController", ["$scope", "$http", customerController]);
 
     //angularjs controller method
     function customerController($scope, $http) {
@@ -134,7 +109,7 @@
         $scope.addMode = false;
 
         //get all customer information
-        $http.get('/api/customers/').success(function (data) {
+        $http.get("/api/customers/").success(function (data) {
             $scope.customers = data;
             $scope.loading = false;
         })
@@ -159,7 +134,7 @@
         //Inser Customer
         $scope.add = function () {
             $scope.loading = true;
-            $http.post('/api/customers/', this.newcustomer).success(function (data) {
+            $http.post("/api/customers/", this.newcustomer).success(function (data) {
                 alert("Added Successfully!!");
                 $scope.addMode = false;
                 $scope.customers.push(data);
@@ -176,7 +151,7 @@
             $scope.loading = true;
             var frien = this.customer;
             alert(frien);
-            $http.put('/api/customers/' + frien.Id, frien).success(function (data) {
+            $http.put("/api/customers/" + frien.Id, frien).success(function (data) {
                 alert("Saved Successfully!!");
                 frien.editMode = false;
                 $scope.loading = false;
@@ -190,7 +165,7 @@
         $scope.deletecustomer = function () {
             $scope.loading = true;
             var Id = this.customer.Id;
-            $http.delete('/api/customers/' + Id).success(function (data) {
+            $http.delete("/api/customers/" + Id).success(function (data) {
                 alert("Deleted Successfully!!");
                 $.each($scope.customers, function (i) {
                     if ($scope.customers[i].Id === Id) {

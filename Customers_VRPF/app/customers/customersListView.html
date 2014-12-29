@@ -1,0 +1,100 @@
+﻿<div class="container" data-ng-cloak>
+    <div class="row">
+        <div class="col-md-12">
+            <strong class="error">{{ error }}</strong>
+            <p data-ng-hide="vm.addMode"><a data-ng-click="vm.toggleAdd()" href="javascript:;" class="btn btn-primary">Add New</a></p>
+            <form name="addCustomer" data-ng-show="vm.addMode" style="width:600px;margin:0 auto;">
+                <div class="form-group">
+                    <label for="cname" class="col-sm-2 control-label">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="cname" placeholder="please enter your name" data-ng-model="newcustomer.Name" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-2 control-label">Address:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="address" placeholder="please enter your address" data-ng-model="newcustomer.Address" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="city" class="col-sm-2 control-label">City:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="city" placeholder="please enter your city" data-ng-model="newcustomer.City" required />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="col-sm-2 control-label">Country:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="country" placeholder="please enter your country" data-ng-model="newcustomer.Country" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <br />
+                        <input type="submit" value="Add" data-ng-click="vm.add(newcustomer)" data-ng-disabled="!addCustomer.$valid" class="btn btn-primary" />
+                        <input type="button" value="Cancel" data-ng-click="vm.toggleAdd()" class="btn btn-primary" />
+                    </div>
+                </div>
+                <br />
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <br />
+            <br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>Country</th>
+                    </tr>
+                    <tr data-ng-repeat="customer in vm.customers">
+                        <td><strong data-ng-hide="customer.editMode">{{ customer.Id }}</strong></td>
+                        <td>
+                            <a ui-sref="customersDetail({customerId: customer.Id})"><p data-ng-hide="customer.editMode">{{ customer.Name }}</p></a>
+                            <input data-ng-show="customer.editMode" type="text" data-ng-model="customer.Name" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="customer.editMode">{{ customer.Address }}</p>
+                            <input data-ng-show="customer.editMode" type="text" data-ng-model="customer.Address" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="customer.editMode">{{ customer.City }}</p>
+                            <input data-ng-show="customer.editMode" type="text" data-ng-model="customer.City" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="customer.editMode">{{ customer.Country }}</p>
+                            <input data-ng-show="customer.editMode" type="text" data-ng-model="customer.Country" />
+                        </td>
+                        <td>
+                            <p data-ng-hide="customer.editMode">
+                                <button data-ng-click="toggleEdit(customer)" class="btn btn-default" type="button">Quick Edit</button>
+                                <a ui-sref="customersEdit({customerId: customer.Id})" class="btn btn-default">Edit</a>
+                                <button data-ng-click="vm.deletecustomer(customer)" class="btn btn-default" type="button">Delete</button>
+                            </p>
+                            <p data-ng-show="customer.editMode">
+                                <button data-ng-click="vm.save(customer)" class="btn btn-default" type="button">Save</button>
+                                <button data-ng-click="toggleEdit(customer)" class="btn btn-default" type="button">Cancel</button>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <hr />
+            </div>
+        </div>
+    </div>
+    <!--
+    <div id="mydiv" data-ng-show="loading">
+        <img src="Images/ajax-loader.gif" class="ajax-loader"/>
+    </div>
+    -->
+</div>

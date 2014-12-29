@@ -196,6 +196,15 @@
     <Compile Include="Repositories\CustomerRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\customers\customersEditCtrl.js" />
+    <Content Include="app\customers\customersDetailView.html" />
+    <Content Include="app\customers\customersEditView.html" />
+    <Content Include="app\customers\customersListCtrl.js" />
+    <Content Include="app\customers\customersDetailCtrl.js" />
+    <Content Include="app\customers\customersListView.html" />
+    <Content Include="app\services\customerResource.js" />
+    <Content Include="app\services\services.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -205,6 +214,8 @@
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-ui-router.js" />
+    <Content Include="Scripts\angular-ui-router.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\customerCtrl.js" />

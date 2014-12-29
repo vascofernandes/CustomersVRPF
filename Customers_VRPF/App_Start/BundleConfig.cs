@@ -17,19 +17,25 @@ namespace Customers_VRPF
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+                        "~/Scripts/bootstrap.js",
+                        "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                        "~/Content/bootstrap.css",
+                        "~/Content/site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
-                      "~/Scripts/angular.min.js",
-                      "~/Scripts/angular-resource.min.js"));
+                        "~/Scripts/angular.min.js",
+                        "~/Scripts/angular-resource.min.js",
+                        "~/Scripts/angular-ui-router.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/customerjs").Include(
-                      "~/Scripts/app/customerCtrl.js"));
+                        "~/app/app.js",
+                        "~/app/services/services.js",
+                        "~/app/services/customerResource.js",
+                        "~/app/customers/customersListCtrl.js",
+                        "~/app/customers/customersEditCtrl.js",
+                        "~/app/customers/customersDetailCtrl.js"));
         }
     }
 }

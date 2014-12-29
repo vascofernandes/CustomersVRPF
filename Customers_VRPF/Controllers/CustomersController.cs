@@ -50,14 +50,23 @@ namespace Customers_VRPF.Controllers
 
         public IHttpActionResult Get(int id)
         {
-            var result = _unit.Customers.GetOne(id);
+            var customer = _unit.Customers.GetOne(id);
 
-            if (result == null)
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            var response = ""; // result.To<CustomerDto>();
+            var response = new CustomerDto()
+                           {
+                               Id = customer.Id,
+                               Name = customer.Name,
+                               Address = customer.Address,
+                               City = customer.City,
+                               Country = customer.Country
+                           };
+
+            // result.To<CustomerDto>();
 
             return Ok(response);
         }

@@ -102,6 +102,8 @@
     <Content Include="scripts\angular-mocks.js" />
     <Content Include="scripts\angular-resource.js" />
     <Content Include="scripts\angular-resource.min.js" />
+    <Content Include="scripts\angular-ui-router.js" />
+    <Content Include="scripts\angular-ui-router.min.js" />
     <Content Include="scripts\angular.js" />
     <Content Include="scripts\angular.min.js" />
   </ItemGroup>
